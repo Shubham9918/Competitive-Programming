@@ -34,6 +34,6 @@ int main(){
   long max_sum = calculate_output(input_len, input);
   cout<<"Max_Subarray_Sum : "<<max_sum<<"\n";
   clock_t e_time = clock();
-  cout<<"Time taken : "<<(double)(e_time-s_time)<<"\n";
+  cout<<"Time taken : "<<(double)(e_time-s_time)/CLOCKS_PER_SEC<<"\n";
   return 0;
 }
