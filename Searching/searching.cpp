@@ -8,8 +8,32 @@ int main(){
   freopen("output.txt", "w", stdout);
   auto int_pos  =  find(int_vec.begin(),int_vec.end(), -10);
   auto str_pos = find(str_vec.begin(), str_vec.end(), "xyz");
-  cout<<int_pos-int_vec.begin()<<"\n";
-  cout<<str_pos-str_vec.begin()<<"\n";
+  if(int_pos>int_vec.end()){
+    cout<<"Element not found...\n";
+  }
+  else{
+    cout<<int_pos-int_vec.begin()<<"\n";
+  }
+  if(str_pos>str_vec.end()){
+    cout<<"Element not found...\n";
+  }
+  else{
+    cout<<str_pos-str_vec.begin()<<"\n";
+  }
+  int_pos  =  find(int_vec.begin(),int_vec.end(), -5);
+  str_pos = find(str_vec.begin(), str_vec.end(), "xy");
+  if(int_pos>int_vec.begin()){
+    cout<<"Element not found...\n";
+  }
+  else{
+    cout<<int_pos-int_vec.end()<<"\n";
+  }
+  if(str_pos>str_vec.begin()){
+    cout<<"Element not found...\n";
+  }
+  else{
+    cout<<str_pos-str_vec.end()<<"\n";
+  }
   cout<<"Good Bye....\n";
   return 0;
 }
