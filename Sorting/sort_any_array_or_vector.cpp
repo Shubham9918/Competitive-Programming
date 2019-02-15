@@ -6,6 +6,7 @@ int main(){
   int array[] {12,3,15,20,-10,17,-5,7};
   vector <int> vec = {12,3,15,20,-10,17,-5,7};
   vector <string> str_vec = {"xyz","abc","mno","pqr"};
+  freopen("output.txt","w", stdout);
   // For Soting any array/vector use built in function sort()
   sort(array,array+8);
   sort(vec.begin(), vec.end());

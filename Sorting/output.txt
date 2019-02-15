@@ -1,0 +1,7 @@
+Sorted array :
+-10 -5 3 7 12 15 17 20 
+Sorted int vector : 
+-10 -5 3 7 12 15 17 20 
+Sorted string vector : 
+abc mno pqr xyz 
+Good Bye...
