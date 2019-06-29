@@ -39,17 +39,66 @@ class Graph{
 			}
 		}
 
+		vector<int> getNeibour(int id){
+			vector<int> neibour;
+			if (id>=0 && id<n ){
+				auto temp = adjMatrix[id];
+				for (int i = 0; i < n; ++i){
+					if(temp[i]!=0){
+						neibour.push_back(i);
+					}
+				}
+			}
+
+			return neibour;
+
+			
+		}
+
+		void dfsUtil(int i){
+			visited[i] = 1;
+			cout<<i<<"-->";
+			for (auto x: getNeibour(i)){
+				if (visited[x]==0){
+					dfsUtil(x);
+				}
+			}
+
+
+		}
+
+		void dfsRun(){
+			for (int i = 0; i < n; ++i)
+			{
+				if (visited[i]==0){
+					dfsUtil(i);
+				}
+			}
+
+		}
+
+
+
+
+
 };
 
 int main()
 {
 	Graph G(5);
-	G.addEdge(0,2,10);
-	G.addEdge(1,3,5);
-	G.addEdge(4,4,2);
+	G.addEdge(0,1,2);
+	G.addEdge(1,2,3);
+	G.addEdge(1,3,4);
+
+	G.addEdge(3,4,3);
+	G.addEdge(0,4,5);
+
 	G.printEdges();
 	// G.printVisited();
+	G.dfsRun();
+
 	return 0;
+	
 }
 
 
