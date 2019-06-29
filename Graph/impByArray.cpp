@@ -7,12 +7,16 @@ class Graph{
 		int n;
 		int **adjMatrix;
 		bool *visited;
+		int *color;
+		int *distance;
 
 	public:
 		Graph(int n){
 			this->n = n;
 			visited = new bool [n];
 			adjMatrix = new int* [n];
+			distance = new int [n];
+			color = new int [n];
 
 			for (int i=0;i<n;i++){
 				adjMatrix[i] = new int [n];
@@ -77,6 +81,41 @@ class Graph{
 
 		}
 
+		void bfsUtil(int i){
+			queue <int> q;
+			// color[i] = 1;
+			distance[i] = 0;
+			q.push(i);
+
+			while(!q.empty()){
+				auto current = q.front();
+				q.pop();
+				cout<<current<<"-->";
+
+				for(auto x: getNeibour(current)){
+					if(color[x]==0){
+						color[x] = 1;
+						distance[x] = distance[current]+1;
+						q.push(x);
+						
+
+					}
+					color[current] = 2;
+				}
+			}
+
+		}
+
+		void bfsRun(){
+			for (int i = 0; i < n; ++i){
+				if(color[i]==0){
+					bfsUtil(i);
+				}			
+
+			}
+
+		}
+
 
 
 
@@ -95,7 +134,9 @@ int main()
 
 	G.printEdges();
 	// G.printVisited();
-	G.dfsRun();
+	// G.dfsRun();
+	G.bfsRun();
+
 
 	return 0;
 	
