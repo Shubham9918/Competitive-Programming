@@ -4,19 +4,60 @@ using namespace std;
 class Graph{
 
 	private:
+
+		void bfsUtil(int i){
+			queue <int> q;
+			// color[i] = 1;
+			distance[i] = 0;
+			q.push(i);
+
+			while(!q.empty()){
+				auto current = q.front();
+				q.pop();
+				cout<<current<<"-->";
+
+				for(auto x: getNeibour(current)){
+					if(color[x]==0){
+						color[x] = 1;
+						previous[x] = current;
+						distance[x] = distance[current]+1;
+						q.push(x);
+						
+
+					}
+					color[current] = 2;
+				}
+			}
+
+		}
+
+		void dfsUtil(int i){
+			visited[i] = 1;
+			cout<<i<<"-->";
+			for (auto x: getNeibour(i)){
+				if (visited[x]==0){
+					dfsUtil(x);
+				}
+			}
+
+
+		}
+
+	public:
 		int n;
 		int **adjMatrix;
 		bool *visited;
 		int *color;
 		int *distance;
-
-	public:
+		int *previous;
 		Graph(int n){
 			this->n = n;
 			visited = new bool [n];
 			adjMatrix = new int* [n];
 			distance = new int [n];
 			color = new int [n];
+			previous = new int [n];
+			previous[0] = -1;
 
 			for (int i=0;i<n;i++){
 				adjMatrix[i] = new int [n];
@@ -59,17 +100,7 @@ class Graph{
 			
 		}
 
-		void dfsUtil(int i){
-			visited[i] = 1;
-			cout<<i<<"-->";
-			for (auto x: getNeibour(i)){
-				if (visited[x]==0){
-					dfsUtil(x);
-				}
-			}
-
-
-		}
+		
 
 		void dfsRun(){
 			for (int i = 0; i < n; ++i)
@@ -81,30 +112,7 @@ class Graph{
 
 		}
 
-		void bfsUtil(int i){
-			queue <int> q;
-			// color[i] = 1;
-			distance[i] = 0;
-			q.push(i);
-
-			while(!q.empty()){
-				auto current = q.front();
-				q.pop();
-				cout<<current<<"-->";
-
-				for(auto x: getNeibour(current)){
-					if(color[x]==0){
-						color[x] = 1;
-						distance[x] = distance[current]+1;
-						q.push(x);
-						
-
-					}
-					color[current] = 2;
-				}
-			}
-
-		}
+		
 
 		void bfsRun(){
 			for (int i = 0; i < n; ++i){
@@ -115,31 +123,5 @@ class Graph{
 			}
 
 		}
-
-
-
-
-
 };
-
-int main()
-{
-	Graph G(5);
-	G.addEdge(0,1,2);
-	G.addEdge(1,2,3);
-	G.addEdge(1,3,4);
-
-	G.addEdge(3,4,3);
-	G.addEdge(0,4,5);
-
-	G.printEdges();
-	// G.printVisited();
-	// G.dfsRun();
-	G.bfsRun();
-
-
-	return 0;
-	
-}
-
 
