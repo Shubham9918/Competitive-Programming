@@ -143,7 +143,25 @@ class Tree{
 						s.push(top->getLeft());
 				}
 			}
-			return max;
+		}
+		int getSizeByStack(){
+			int size = 0;
+			stack<Node*> s;
+			if(root == NULL)
+				return size;
+			else{
+				s.push(root);
+				while(!s.empty()){
+					auto top = s.top();
+					s.pop();
+					size++;
+					if(top->getRight() != NULL)
+						s.push(top->getRight());
+					if(top->getLeft() != NULL)
+						s.push(top->getLeft());
+				}
+			}
+			return size;
 		}
 };
 
@@ -159,6 +177,8 @@ int main(){
 	int a = t.getMax(t.getRoot());
 	cout<<a<<"\n";
 	a = t.findKeyByStack(11);
+	cout<<a<<"\n";
+	a = t.getSizeByStack();
 	cout<<a<<"\n";
 	return 0;
 }
