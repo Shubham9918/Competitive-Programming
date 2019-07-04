@@ -4,12 +4,14 @@ class Tree{
 	private:
 		Node* root;
 		int max;
+		int height;
 
 	public:
 
 		Tree(){
 			root = NULL;
 			max = 0;
+			height = 0;
 		}
 
 		Node* getRoot(){
@@ -94,17 +96,73 @@ class Tree{
 		}
 
 		int getMax(Node* root){
-
 			if(root==NULL){
 				return max;
 			}
 				if(root->getKey()>max){
 					max = root->getKey();
 				}
-				findMax(root->getLeft());
-				findMax(root->getRight());
+				getMax(root->getLeft());
+				getMax(root->getRight());
 			return max;
 		}
+
+		bool findKey(Node* root,int key){
+			if(root==NULL){
+				return 0;
+			}
+			if(root->getKey()==key){
+				return 1;
+			}
+			else{
+				int temp = findKey(root->getLeft(),key);
+				
+				if(temp==1){
+					return temp;
+				}else{
+					findKey(root->getRight(),key);
+				}
+			}
+			
+		}
+
+		int getSize(Node* root){
+			if(root==NULL){
+				return 0;
+			}
+			int left = getSize(root->getLeft());
+			int right = getSize(root->getRight());
+			return left+right+1;
+		}
+
+		void deleteTree(Node* root){
+			if (root == NULL){
+				return;
+			}
+			deleteTree(root->getLeft());
+			deleteTree(root->getRight());
+			delete root;
+		}
+
+		int getHeight(Node* root,int height){
+			if(root == NULL){
+				return height;
+			}else{
+				
+				int left = getHeight(root->getLeft(),height++);
+				int right = getHeight(root->getRight(),height++);
+
+				if(left>right){
+					height = left;
+				}else{
+					height = right;
+				}
+
+			}
+			return height;
+		}
+
+
 
 
 
@@ -113,13 +171,13 @@ class Tree{
 int main(){
 
 	Tree t;
-	vector<int> v = {3,4,6,2,8,20,8,5,7,9,0};
+	vector<int> v = {3,4,6,2,8,20};
 
 	for(auto x:v){
 		t.insertNodeInLevelOrder(x);
 	}
 
-	int a = t.getMax(t.getRoot());
+	int a = t.getHeight(t.getRoot(),0);
 	cout<<a<<"\n";
 
 
