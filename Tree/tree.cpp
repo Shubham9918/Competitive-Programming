@@ -163,6 +163,23 @@ class Tree{
 			}
 			return size;
 		}
+		void getLevelOder(){
+			queue<Node*> q;
+			if(root == NULL)
+				return;
+			else{
+				q.push(root);
+				while(!q.empty()){
+					auto front = q.front();
+					q.pop();
+					cout<<front->getKey()<<" ";
+					if(front->getLeft() != NULL)
+						q.push(front->getLeft());
+					if(front->getRight() != NULL)
+						q.push(front->getRight());
+				}
+			}
+		}
 };
 
 int main(){
@@ -180,5 +197,7 @@ int main(){
 	cout<<a<<"\n";
 	a = t.getSizeByStack();
 	cout<<a<<"\n";
+	t.getLevelOder();
+	cout<<endl;
 	return 0;
 }
