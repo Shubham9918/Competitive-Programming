@@ -101,13 +101,30 @@ class Tree{
 				if(root->getKey()>max){
 					max = root->getKey();
 				}
-				findMax(root->getLeft());
-				findMax(root->getRight());
+				getMax(root->getLeft());
+				getMax(root->getRight());
 			return max;
 		}
-
-
-
+		int getMaxByStack(){
+			int max = 0;
+			stack<Node*> s;
+			if(root == NULL)
+				return 0;
+			else{
+				s.push(root);
+				while(!s.empty()){
+					auto top = s.top();
+					s.pop();
+					if(top->getKey() > max)
+						max = top->getKey();
+					if(top->getRight() != NULL)
+						s.push(top->getRight());
+					if(top->getLeft() != NULL)
+						s.push(top->getLeft());
+				}
+			}
+			return max;
+		}
 };
 
 int main(){
@@ -121,7 +138,7 @@ int main(){
 
 	int a = t.getMax(t.getRoot());
 	cout<<a<<"\n";
-
-
+	a = t.getMaxByStack();
+	cout<<a<<"\n";
 	return 0;
 }
