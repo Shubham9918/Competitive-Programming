@@ -166,6 +166,81 @@ class Tree{
 
 
 
+		int getMaxByStack(){
+			int max = 0;
+			stack<Node*> s;
+			if(root == NULL)
+				return 0;
+			else{
+				s.push(root);
+				while(!s.empty()){
+					auto top = s.top();
+					s.pop();
+					if(top->getKey() > max)
+						max = top->getKey();
+					if(top->getRight() != NULL)
+						s.push(top->getRight());
+					if(top->getLeft() != NULL)
+						s.push(top->getLeft());
+				}
+			}
+			return max;
+		}
+		bool findKeyByStack(int key){
+			int max = 0;
+			stack<Node*> s;
+			if(root == NULL)
+				return false;
+			else{
+				s.push(root);
+				while(!s.empty()){
+					auto top = s.top();
+					s.pop();
+					if(top->getKey() == key)
+						return true;
+					if(top->getRight() != NULL)
+						s.push(top->getRight());
+					if(top->getLeft() != NULL)
+						s.push(top->getLeft());
+				}
+			}
+		}
+		int getSizeByStack(){
+			int size = 0;
+			stack<Node*> s;
+			if(root == NULL)
+				return size;
+			else{
+				s.push(root);
+				while(!s.empty()){
+					auto top = s.top();
+					s.pop();
+					size++;
+					if(top->getRight() != NULL)
+						s.push(top->getRight());
+					if(top->getLeft() != NULL)
+						s.push(top->getLeft());
+				}
+			}
+			return size;
+		}
+		void getLevelOder(){
+			queue<Node*> q;
+			if(root == NULL)
+				return;
+			else{
+				q.push(root);
+				while(!q.empty()){
+					auto front = q.front();
+					q.pop();
+					cout<<front->getKey()<<" ";
+					if(front->getLeft() != NULL)
+						q.push(front->getLeft());
+					if(front->getRight() != NULL)
+						q.push(front->getRight());
+				}
+			}
+		}
 };
 
 int main(){
@@ -179,7 +254,11 @@ int main(){
 
 	int a = t.getHeight(t.getRoot(),0);
 	cout<<a<<"\n";
-
-
+	a = t.findKeyByStack(11);
+	cout<<a<<"\n";
+	a = t.getSizeByStack();
+	cout<<a<<"\n";
+	t.getLevelOder();
+	cout<<endl;
 	return 0;
 }
