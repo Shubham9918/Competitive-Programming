@@ -3,11 +3,13 @@
 class Tree{
 	private:
 		Node* root;
+		int max;
 
 	public:
 
 		Tree(){
 			root = NULL;
+			max = 0;
 		}
 
 		Node* getRoot(){
@@ -91,6 +93,19 @@ class Tree{
 			return res;
 		}
 
+		int getMax(Node* root){
+
+			if(root==NULL){
+				return max;
+			}
+				if(root->getKey()>max){
+					max = root->getKey();
+				}
+				findMax(root->getLeft());
+				findMax(root->getRight());
+			return max;
+		}
+
 
 
 };
@@ -98,18 +113,15 @@ class Tree{
 int main(){
 
 	Tree t;
-	t.insertNodeInLevelOrder(4);
-	t.insertNodeInLevelOrder(2);
-	t.insertNodeInLevelOrder(5);
-	t.insertNodeInLevelOrder(6);
-	t.insertNodeInLevelOrder(7);
-	t.insertNodeInLevelOrder(8);
-	t.insertNodeInLevelOrder(9);
-	t.preOrder(t.getRoot());
-	auto res = t.preOrderStack();
-	cout<<endl;
-	for(auto x: res){
-		cout<<x->getKey()<<"->";
+	vector<int> v = {3,4,6,2,8,20,8,5,7,9,0};
+
+	for(auto x:v){
+		t.insertNodeInLevelOrder(x);
 	}
+
+	int a = t.getMax(t.getRoot());
+	cout<<a<<"\n";
+
+
 	return 0;
 }
